@@ -1,7 +1,6 @@
 package model.dao.impl; //impl = implementacao
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -110,8 +109,6 @@ public class SellerDaoJDBC implements SellerDao {
 		finally {
 			DB.closeStatement(st);
 		}	
-		
-		
 	}
 
 	@Override

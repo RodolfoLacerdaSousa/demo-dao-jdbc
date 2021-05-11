@@ -1,6 +1,7 @@
 package model.dao;
 
 import db.DB;
+import model.dao.impl.DepartmentDaoJDBC;
 import model.dao.impl.SellerDaoJDBC;
 
 public class DaoFactory { //vai instanciar uma implementacao
@@ -9,6 +10,9 @@ public class DaoFactory { //vai instanciar uma implementacao
 		return new SellerDaoJDBC(DB.getConnection());
 	}
 
+	public static DepartmentDao createDepartmentDao() {
+		return new DepartmentDaoJDBC(DB.getConnection());
+	}
 }
 // serve para esconder a implementao do Program, o program so vai conhecer a Interface...
 // tbm faz uma injencao de dependencia sem explicitar a implementacao.
