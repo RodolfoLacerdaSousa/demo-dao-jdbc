@@ -53,18 +53,10 @@ public class SellerDaoJDBC implements SellerDao {
 			rs = st.executeQuery();
 			if(rs.next()) { //se existir algo na consulta feita ao banco de dados, vai colocar os valores aqui nos objetos
 				//Department
-				Department dep = new Department();
-				dep.setId(rs.getInt("DepartmentId"));
-				dep.setName(rs.getString("DepName"));
+				Department dep = instantiateDepartment(rs);
 				
 				//Seller
-				Seller obj = new Seller();
-				obj.setId(rs.getInt("Id"));
-				obj.setName(rs.getString("Name"));
-				obj.setEmail(rs.getString("Email"));
-				obj.setBaseSalary(rs.getDouble("BaseSalary"));
-				obj.setBirthDate(rs.getDate("BirthDate"));
-				obj.setDepartment(dep);
+				Seller obj = instatiateSeller(rs, dep);
 				
 				return obj;	
 			}
@@ -78,6 +70,24 @@ public class SellerDaoJDBC implements SellerDao {
 			DB.closeResultSet(rs); 
 			//nao precisa fechar a conexao conn
 		}
+	}
+
+	private Seller instatiateSeller(ResultSet rs, Department dep) throws SQLException { //propagou a excecao para o findById
+		Seller obj = new Seller();
+		obj.setId(rs.getInt("Id"));
+		obj.setName(rs.getString("Name"));
+		obj.setEmail(rs.getString("Email"));
+		obj.setBaseSalary(rs.getDouble("BaseSalary"));
+		obj.setBirthDate(rs.getDate("BirthDate"));
+		obj.setDepartment(dep);
+		return obj;
+	}
+
+	private Department instantiateDepartment(ResultSet rs) throws SQLException {
+		Department dep = new Department();
+		dep.setId(rs.getInt("DepartmentId"));
+		dep.setName(rs.getString("DepName"));
+		return dep;
 	}
 
 	@Override
